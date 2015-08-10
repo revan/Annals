@@ -5,12 +5,10 @@ import subprocess
 import time
 from template import template
 import os
-
-
+import datetime
 
 def make_filename():
-	# TODO: cleaner yy-mm-dd
-	return '%d.json' % time.time()
+	return datetime.date.today().isoformat() + '.json'
 
 if len(sys.argv) != 2:
 	print("USAGE: %s [config.json]" % sys.argv[0])
