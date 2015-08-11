@@ -7,6 +7,8 @@ from template import template
 import os
 import datetime
 
+SYMLINK = 'latest'
+
 def make_filename():
 	return datetime.date.today().isoformat() + '.json'
 
@@ -26,8 +28,11 @@ conf['entries'].append(filename)
 with open(sys.argv[1], 'w') as conf_fp:
 	json.dump(conf, conf_fp)
 
-# TODO update symlink
+# update symlink
+if os.path.exists(SYMLINK):
+	os.unlink(SYMLINK)
+os.symlink(filename, SYMLINK)
 
 # Update template
 with open(conf['output'], 'w') as out_fp:
-	out_fp.write(template.render(title=conf['title'], files=conf['entries']))
+	out_fp.write(template.render(title=conf['title'], files=conf['entries'], latest=SYMLINK))
