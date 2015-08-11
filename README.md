@@ -8,19 +8,18 @@ It then updates a symlink to the latest results, and generates a static HTML pag
 Meant to be called by a cron job, and served statically with `nginx` or `apache`.
 
 ## Config file format
-```json
+```
 {
 	"command": "./dummy.py",
-	"title": "Page Title",
-	"entries": [],
-	"output": "index.html"
+	"entries": [], // database
+	"index": true, // generate HTML?
+	"title": "Page Title"
 }
 ```
 
 ## TODO
 	- Extend to support a merging strategy for APIs that return an array.
 	- Configurable GitHub link / project info
-	- Optional page generation
 
 ## Dependencies
 `pip install jinja2`

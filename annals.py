@@ -3,7 +3,6 @@ import json
 import sys
 import subprocess
 import time
-from template import template
 import os
 import datetime
 
@@ -34,6 +33,8 @@ if os.path.exists(SYMLINK):
 	os.unlink(SYMLINK)
 os.symlink(filename, SYMLINK)
 
-# Update template
-with open(conf['output'], 'w') as out_fp:
-	out_fp.write(template.render(title=conf['title'], files=conf['entries'], latest=SYMLINK))
+if 'index' in conf and conf['index']:
+	# Update template
+	from template import template
+	with open('index.html', 'w') as out_fp:
+		out_fp.write(template.render(title=conf['title'], files=conf['entries'], latest=SYMLINK))
